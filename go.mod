@@ -1,4 +1,4 @@
-module github.com/jrudio/go-plex-client
+module github.com/aetaric/go-plex-client
 
 go 1.12
 
