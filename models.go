@@ -533,77 +533,65 @@ type BaseAPIResponse struct {
 
 // UserPlexTV plex.tv user. should be used when interacting with plex.tv as the id is an int
 type UserPlexTV struct {
-	// ID is an int when signing in to Plex.tv but a string when access own server
-	ID                int    `json:"id"`
-	UUID              string `json:"uuid"`
-	Email             string `json:"email"`
-	FriendlyName      string `json:"friendlyName"`
-	Locale            string `json:"locale"` // can be null
-	Confirmed         bool   `json:"confirmed"`
-	EmailOnlyAuth     bool   `json:"emailOnlyAuth"`
-	Protected         bool   `json:"protected"`
-	MailingListStatus string `json:"mailingListStatus"`
-	MailingListActive bool   `json:"mailingListActive"`
-	ScrobbleTypes     string `json:"scrobbleTypes"`
-	Country           string `json:"country"`
-	JoinedAt          string `json:"joined_at"`
-	Username          string `json:"username"`
-	Thumb             string `json:"thumb"`
-	HasPassword       bool   `json:"hasPassword"`
-	AuthToken         string `json:"authToken"`
-	// AuthenticationToken string `json:"authenticationToken"`
-	Subscription struct {
-		Active         bool     `json:"active"`
-		Status         string   `json:"Active"`
-		Plan           string   `json:"lifetime"`       // can be null
-		SubscribedAt   string   `json:"subscribedAt"`   // can be null
-		PaymentService string   `json:"paymentService"` // can be null
-		Features       []string `json:"features"`
+	ID                int         `json:"id"`
+	UUID              string      `json:"uuid"`
+	Username          string      `json:"username"`
+	Title             string      `json:"title"`
+	Email             string      `json:"email"`
+	FriendlyName      string      `json:"friendlyName"`
+	Locale            interface{} `json:"locale"`
+	Confirmed         bool        `json:"confirmed"`
+	JoinedAt          int         `json:"joinedAt"`
+	EmailOnlyAuth     bool        `json:"emailOnlyAuth"`
+	HasPassword       bool        `json:"hasPassword"`
+	Protected         bool        `json:"protected"`
+	Thumb             string      `json:"thumb"`
+	AuthToken         string      `json:"authToken"`
+	MailingListStatus string      `json:"mailingListStatus"`
+	MailingListActive bool        `json:"mailingListActive"`
+	ScrobbleTypes     string      `json:"scrobbleTypes"`
+	Country           string      `json:"country"`
+	Pin               string      `json:"pin"`
+	Subscription      struct {
+		Active         bool      `json:"active"`
+		SubscribedAt   time.Time `json:"subscribedAt"`
+		Status         string    `json:"status"`
+		PaymentService string    `json:"paymentService"`
+		Plan           string    `json:"plan"`
+		Features       []string  `json:"features"`
 	} `json:"subscription"`
-	SubscriptionDescription string `json:"subscriptionDescription"` // can be null
-	Restricted              bool   `json:"restricted"`
-	Anonymous               string `json:"anonymous"` // can be null
-	Home                    bool   `json:"home"`
-	Guest                   bool   `json:"guest"`
-	HomeSize                int64  `json:"homeSize"` // type may be wrong
-	HomeAdmin               bool   `json:"homeAdmin"`
-	MaxHomeSize             int64  `json:"maxHomeSize"` // type may be wrong
-	CertificateVersion      int64  `json:"certificateVersion"`
-	RememberExpiresAt       int64  `json:"rememberExpiresAt"`
+	SubscriptionDescription string      `json:"subscriptionDescription"`
+	Restricted              bool        `json:"restricted"`
+	Anonymous               interface{} `json:"anonymous"`
+	Home                    bool        `json:"home"`
+	Guest                   bool        `json:"guest"`
+	HomeSize                int         `json:"homeSize"`
+	HomeAdmin               bool        `json:"homeAdmin"`
+	MaxHomeSize             int         `json:"maxHomeSize"`
+	RememberExpiresAt       int         `json:"rememberExpiresAt"`
 	Profile                 struct {
 		AutoSelectAudio              bool   `json:"autoSelectAudio"`
 		DefaultAudioLanguage         string `json:"defaultAudioLanguage"`
 		DefaultSubtitleLanguage      string `json:"defaultSubtitleLanguage"`
-		AutoSelectSubtitle           int64  `json:"autoSelectSubtitle"`
-		DefaultSubtitleAccessibility int64  `json:"defaultSubtitleAccessibility"`
-		DefaultSubtitleForced        int64  `json:"defaultSubtitleForced"`
+		AutoSelectSubtitle           int    `json:"autoSelectSubtitle"`
+		DefaultSubtitleAccessibility int    `json:"defaultSubtitleAccessibility"`
+		DefaultSubtitleForced        int    `json:"defaultSubtitleForced"`
 	} `json:"profile"`
-	Subscriptions []struct {
-		ID       int64  `json:"id"`
-		Mode     string `json:"mode"`
-		RenewsAt string `json:"renewsAt"` // can be null; not sure of type as I have lifetime membership
-		EndsAt   string `json:"endsAt"`   // can be null; not sure of type as I have lifetime membership
-		Type     string `json:"type"`
-		Transfer string `json:"transfer"` // can be null; not sure of type
-		State    string `json:"state"`
-	} `json:"subscriptions"`
-	PastSubscriptions    []string   `json:"pastSubscriptions"`
-	Trials               []string   `json:"trials"`
-	Services             []Services `json:"services"`
-	AdsConsent           bool       `json:"adsConsent"`           // can be null
-	AdsConsentSetAt      int        `json:"adsConsentSetAt"`      // can be null
-	AdsConsentReminderAt int        `json:"adsConsentReminderAt"` // can be null
-	ExperimentalFeatures bool       `json:"experimentalFeatures"`
-	TwoFactorEnabled     bool       `json:"twoFactorEnabled"`
-	BackupCodesCreated   bool       `json:"backupCodesCreated"`
-	// Roles                struct {
-	// 	Roles []string `json:"roles"`
-	// } `json:"roles"`
 	Entitlements []string `json:"entitlements"`
-	// ConfirmedAt  string      `json:"confirmedAt"`
-	// ForumID    json.Number `json:"forumId"`
-	// RememberMe bool   `json:"rememberMe"`
-	Title string `json:"title"`
+	Roles        []string `json:"roles"`
+	Services     []struct {
+		Identifier string      `json:"identifier"`
+		Endpoint   string      `json:"endpoint"`
+		Token      string      `json:"token"`
+		Secret     interface{} `json:"secret"`
+		Status     string      `json:"status"`
+	} `json:"services"`
+	AdsConsent           interface{} `json:"adsConsent"`
+	AdsConsentSetAt      interface{} `json:"adsConsentSetAt"`
+	AdsConsentReminderAt interface{} `json:"adsConsentReminderAt"`
+	ExperimentalFeatures bool        `json:"experimentalFeatures"`
+	TwoFactorEnabled     bool        `json:"twoFactorEnabled"`
+	BackupCodesCreated   bool        `json:"backupCodesCreated"`
 }
 
 type Services struct {

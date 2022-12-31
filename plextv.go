@@ -4,7 +4,6 @@ package plex
 
 import (
 	"encoding/json"
-	"encoding/xml"
 	"errors"
 	"fmt"
 	"net/http"
@@ -269,6 +268,8 @@ func (p Plex) MyAccount() (UserPlexTV, error) {
 
 	var account UserPlexTV
 
+	p.Headers.Accept = applicationJson
+
 	resp, err := p.get(plexURL+endpoint, p.Headers)
 
 	if err != nil {
@@ -283,7 +284,7 @@ func (p Plex) MyAccount() (UserPlexTV, error) {
 		return account, errors.New(resp.Status)
 	}
 
-	if err := xml.NewDecoder(resp.Body).Decode(&account); err != nil {
+	if err := json.NewDecoder(resp.Body).Decode(&account); err != nil {
 		return account, err
 	}
 
