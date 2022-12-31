@@ -265,7 +265,7 @@ func (p Plex) SetWebhooks(webhooks []string) error {
 
 // MyAccount gets account info (i.e. plex pass, servers, username, etc) from plex tv
 func (p Plex) MyAccount() (UserPlexTV, error) {
-	endpoint := "/users/account"
+	endpoint := "/api/v2/user"
 
 	var account UserPlexTV
 
